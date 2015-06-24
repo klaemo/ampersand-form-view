@@ -6,6 +6,10 @@ var noop = function(){};
 
 module.exports = View.extend({
 
+    events: {
+        'submit': 'handleSubmit'
+    },
+
     derived: {
         data: {
             fn: function () {
@@ -116,7 +120,6 @@ module.exports = View.extend({
     },
 
     remove: function () {
-        this.el.removeEventListener('submit', this.handleSubmit, false);
         this._fieldViewsArray.forEach(function (field) {
             field.remove();
         });
@@ -175,7 +178,6 @@ module.exports = View.extend({
             delete this._startingValues;
         }
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.el.addEventListener('submit', this.handleSubmit, false);
         this.checkValid(true);
     },
 
